@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
+require("dotenv");
 const { v4 } = require("uuid");
 const User = require("./useDetails");
 const Todos = require("./todos");
@@ -9,9 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const mongooseUrl =
-  "mongodb+srv://eventsapp:hQyr9WDPPwHnvjwz@cluster0.z68hmsb.mongodb.net/eventsapp";
-
+const mongooseUrl = process.env.URL;
 async function dbconnection() {
   const result = await mongoose
     .connect(mongooseUrl)
@@ -21,7 +20,7 @@ async function dbconnection() {
     .catch((e) => console.log("Error : ", e.message));
 }
 dbconnection();
-app.listen(5000, () => console.log("sever started"));
+app.listen(process.env.PORT, () => console.log("sever started"));
 
 //                                       APIs
 
